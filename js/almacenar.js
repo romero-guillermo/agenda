@@ -4,6 +4,7 @@
   const limpiarBtn = document.getElementById('limpiar');
   const contenedor = document.getElementById('contenedor');
   const itemInput = document.getElementById('item');
+  const cadaLi = document.getElementById('limpiar2');
   const dosEnUno = itemInput+" "+agregarNum;
   
   // Cargar elementos desde el Local Storage al cargar la página
@@ -30,7 +31,6 @@
     }
   });
 
-  
   limpiarBtn.addEventListener('click', () => {
     // Limpiar el Local Storage
     localStorage.removeItem('items');
@@ -53,4 +53,9 @@
       const item = createListItem(itemText);
       contenedor.appendChild(item);
     });
-  });
+  }); 
+
+  //Borrar cada Item
+ cadaLi.addEventListener('click', ()=>{
+ contenedor.lastChild.remove();
+ })
