@@ -9,3 +9,25 @@
     overflow: auto;
     height: 200px;
   }
+
+  .editIcon {
+    color: grey;
+background-color: yellow;
+padding: 5px;
+border: 2px solid;
+cursor: pointer;
+margin-left: 10px;
+width: 30px;
+
+
+}
+
+.deleteIcon {
+  background-color: red;
+  padding: 5px;
+  border: 2px solid;
+  cursor: pointer;
+  width: 30px;
+
+
+}

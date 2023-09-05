@@ -61,11 +61,12 @@ function createListItem(text) {
   const item = document.createElement('li');
   item.className = 'list-group-item';
 
-  // Botón de Editar
-  const editButton = document.createElement('button');
-  editButton.textContent = 'Editar';
-  editButton.className = 'btn-outline-warning me-2';
-  editButton.addEventListener('click', () => {
+  // Ícono de Edición
+  const editIcon = document.createElement('i');
+  editIcon.className = 'fas fa-edit editIcon me-2'; // Agrega la clase editIcon
+  editIcon.addEventListener('click', () => {
+    // Código de edición aquí...
+
     // Extrae el nombre y el número actuales
     const [nombreActual, numeroActual] = text.split('-').map(t => t.trim());
 
@@ -81,11 +82,10 @@ function createListItem(text) {
     elementoEditado.originalText = text;
   });
 
-  // Botón de Borrar
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Borrar';
-  deleteButton.className = 'btn-outline-danger me-2';
-  deleteButton.addEventListener('click', () => {
+ // Ícono de Borrar
+ const deleteIcon = document.createElement('i');
+ deleteIcon.className = 'fas fa-trash-alt deleteIcon me-2'; // Agrega la clase deleteIcon
+ deleteIcon.addEventListener('click', () => {
     item.remove(); // Elimina el elemento al hacer clic en el botón de borrar
     removeItemFromLocalStorage(text); // También elimina el elemento del Local Storage
   });
@@ -94,10 +94,10 @@ function createListItem(text) {
   const itemText = document.createElement('span');
   itemText.textContent = text;
 
-  // Agrega botones y texto al elemento de la lista
-  item.appendChild(itemText);
-  item.appendChild(editButton);
-  item.appendChild(deleteButton);
+// Agrega íconos y texto al elemento de la lista
+item.appendChild(itemText);
+item.appendChild(editIcon);
+item.appendChild(deleteIcon);
 
   return item;
 }
@@ -119,4 +119,4 @@ buscarBtn.addEventListener('click', () => {
     const item = createListItem(itemText);
     contenedor.appendChild(item);
   });
-}); 
+});
