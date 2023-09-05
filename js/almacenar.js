@@ -110,3 +110,13 @@ function removeItemFromLocalStorage(itemText) {
     localStorage.setItem('items', JSON.stringify(storedItems));
   }
 }
+const searchInput = document.getElementById('buscar');
+buscarBtn.addEventListener('click', () => {
+  const searchTerm = searchInput.value.toLowerCase();
+  const filteredItems = storedItems.filter(item => item.toLowerCase().includes(searchTerm));
+  contenedor.innerHTML = '';
+  filteredItems.forEach(itemText => {
+    const item = createListItem(itemText);
+    contenedor.appendChild(item);
+  });
+}); 
