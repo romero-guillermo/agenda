@@ -7,7 +7,7 @@ const itemInput = document.getElementById('item');
 let elementoEditado = null; // Variable para rastrear el elemento en modo de edición
 
 // Cargar elementos desde el Local Storage al cargar la página
-const storedItems = JSON.parse(localStorage.getItem('items')) || [];
+let storedItems = JSON.parse(localStorage.getItem('items')) || [];
 storedItems.forEach(itemText => {
   const item = createListItem(itemText);
   contenedor.appendChild(item);
@@ -52,7 +52,7 @@ agregarBtn.addEventListener('click', () => {
 limpiarBtn.addEventListener('click', () => {
   // Limpiar el Local Storage
   localStorage.removeItem('items');
-
+  storedItems = [];
   // Limpiar la vista
   contenedor.innerHTML = '';
 });
@@ -63,7 +63,7 @@ function createListItem(text) {
 
   // Ícono de Edición
   const editIcon = document.createElement('i');
-  editIcon.className = 'fas fa-edit editIcon me-2'; // Agrega la clase editIcon
+  editIcon.className = 'btn custom-edit-btn fas fa-edit'; // Agrega la clase editIcon
   editIcon.addEventListener('click', () => {
     // Código de edición aquí...
 
@@ -84,7 +84,7 @@ function createListItem(text) {
 
  // Ícono de Borrar
  const deleteIcon = document.createElement('i');
- deleteIcon.className = 'fas fa-trash-alt deleteIcon me-2'; // Agrega la clase deleteIcon
+ deleteIcon.className = 'btn custom-delete-btn fas fa-trash-alt'; // Agrega la clase deleteIcon
  deleteIcon.addEventListener('click', () => {
     item.remove(); // Elimina el elemento al hacer clic en el botón de borrar
     removeItemFromLocalStorage(text); // También elimina el elemento del Local Storage

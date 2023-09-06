@@ -10,7 +10,7 @@
     height: 200px;
   }
 
-  .editIcon {
+ /* .editIcon {
     color: grey;
 background-color: yellow;
 padding: 5px;
@@ -29,5 +29,32 @@ width: 30px;
   cursor: pointer;
   width: 30px;
 
+
+}
+*/
+/* Estilo solo para el botón de icono específico */
+.custom-delete-btn {
+  cursor: pointer;
+  color: inherit;
+  padding: 3px 6px;
+}
+
+/* Estilo para el cursor cuando se coloca sobre el botón específico */
+.custom-delete-btn:hover {
+  color: red;
+}
+
+/* Estilo solo para el botón de icono específico */
+.custom-edit-btn {
+  cursor: pointer;
+  color: inherit;
+margin-left: 20px;
+padding: 3px 6px;
+}
+
+/* Estilo para el cursor cuando se coloca sobre el botón específico */
+.custom-edit-btn:hover {
+  color: rgb(234, 234, 50);
+ 
 
 }
