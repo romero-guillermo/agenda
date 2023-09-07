@@ -3,6 +3,8 @@ const agregarNum = document.getElementById('num');
 const limpiarBtn = document.getElementById('limpiar');
 const contenedor = document.getElementById('contenedor');
 const itemInput = document.getElementById('item');
+const nombreErrorElement = document.getElementById('nombre-error'); 
+const busquedaError = document.getElementById('busqueda-error');
 
 let elementoEditado = null; // Variable para rastrear el elemento en modo de edición
 
@@ -16,6 +18,10 @@ storedItems.forEach(itemText => {
 agregarBtn.addEventListener('click', () => {
   const newItemText = itemInput.value.trim();
   const newNumText = agregarNum.value.trim();
+
+ // Expresión regular para verificar que newItemText contiene solo letras
+ const letrasRegex = /^[A-Za-z]+$/;
+
 
   if (elementoEditado) {
     // Estamos en modo de edición, así que actualiza el elemento existente
@@ -36,15 +42,23 @@ agregarBtn.addEventListener('click', () => {
     elementoEditado = null;
   } else {
     // No estamos en modo de edición, así que agrega un nuevo elemento
-    if (newItemText && newNumText !== '') {
-      const nuevoItem = createListItem(`${newItemText} - ${newNumText}`);
+    if (!newItemText || !newNumText) {
+      // Error: Uno de los campos no se completó
+      nombreErrorElement.textContent = '*Por favor, complete los dos campos.';
+    } else if (!letrasRegex.test(newItemText)) {
+      // Error: El nombre no contiene solo letras
+      nombreErrorElement.textContent = '*Por favor, ingrese un nombre que solo contenga letras.';
+    } else {
+      // No hay errores, podemos agregar el elemento
+      const nuevoItem = createListItem(` ${newItemText} - ${newNumText}`);
       contenedor.appendChild(nuevoItem);
       storedItems.push(`${newItemText} - ${newNumText}`);
       localStorage.setItem('items', JSON.stringify(storedItems));
-
-      // Limpia el formulario
+  
+      // Limpia el formulario y el mensaje de error
       itemInput.value = '';
       agregarNum.value = '';
+      nombreErrorElement.textContent = ''; // Limpia el mensaje de error
     }
   }
 });
@@ -65,7 +79,6 @@ function createListItem(text) {
   const editIcon = document.createElement('i');
   editIcon.className = 'btn custom-edit-btn fas fa-edit'; // Agrega la clase editIcon
   editIcon.addEventListener('click', () => {
-    // Código de edición aquí...
 
     // Extrae el nombre y el número actuales
     const [nombreActual, numeroActual] = text.split('-').map(t => t.trim());
@@ -84,7 +97,7 @@ function createListItem(text) {
 
  // Ícono de Borrar
  const deleteIcon = document.createElement('i');
- deleteIcon.className = 'btn custom-delete-btn fas fa-trash-alt'; // Agrega la clase deleteIcon
+ deleteIcon.className = 'btn custom-delete-btn fas fa-trash-alt'; 
  deleteIcon.addEventListener('click', () => {
     item.remove(); // Elimina el elemento al hacer clic en el botón de borrar
     removeItemFromLocalStorage(text); // También elimina el elemento del Local Storage
@@ -112,11 +125,27 @@ function removeItemFromLocalStorage(itemText) {
 }
 const searchInput = document.getElementById('buscar');
 buscarBtn.addEventListener('click', () => {
-  const searchTerm = searchInput.value.toLowerCase();
-  const filteredItems = storedItems.filter(item => item.toLowerCase().includes(searchTerm));
+  const searchTerm = searchInput.value.trim().toLowerCase();
   contenedor.innerHTML = '';
-  filteredItems.forEach(itemText => {
-    const item = createListItem(itemText);
-    contenedor.appendChild(item);
-  });
+
+  // Verifica si el término de búsqueda contiene dígitos numéricos
+  const contieneNumeros = /\d/.test(searchTerm);
+
+  if (contieneNumeros) {
+    // Muestra un mensaje de error si el término de búsqueda contiene números
+    busquedaError.textContent = '*Por favor, realice su búsqueda por nombre.';
+  } else {
+    // Realiza la búsqueda normalmente
+    const filteredItems = storedItems.filter(item => {
+      const [nombre] = item.split(' - ');
+      const nombreEnMinusculas = nombre.toLowerCase();
+      return nombreEnMinusculas.includes(searchTerm);
+    });
+
+    filteredItems.forEach(itemText => {
+      const item = createListItem(itemText);
+      contenedor.appendChild(item);
+      busquedaError.textContent = '';
+    });
+  }
 });

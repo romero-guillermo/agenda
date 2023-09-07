@@ -56,5 +56,9 @@ padding: 3px 6px;
 .custom-edit-btn:hover {
   color: rgb(234, 234, 50);
  
-
 }
+.error-message {
+color: red;
+font-size: 12px;
+
+ }

@@ -18,10 +18,12 @@
       <hr class="my-4">
       <div class="row mt-4 g-3">
         <div class="col-sm-4">
-          <label for="Item" class="form-label">Nombre de Contacto:</label>
+          <label for="item" class="form-label">Nombre de Contacto:</label>
           <input type="text" class="form-control" id="item">
-          <label for="Item" class="form-label">Número de Contacto:</label>
+          <label for="num" class="form-label">Número de Contacto:</label>
           <input type="number" class="form-num" id="num">
+          <div id="nombre-error" class="error-message"></div> 
+
           <div class="d-grid">
             <button type="button" class="btn btn-primary my-3" id="agregar">Agregar</button>
           </div>
@@ -30,6 +32,7 @@
           <div class="border rounded-3 cont">
             <input type="text" class="form-control mb-3" id="buscar" placeholder="Buscar por nombre">
             <button type="button" class="btn btn-primary mb-3" id="buscarBtn">Buscar</button>
+            <div id="busqueda-error" class="error-message"></div> 
             <ul class="list-group" id="contenedor">
             </ul>
           </div>
